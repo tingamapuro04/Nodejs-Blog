@@ -32,7 +32,7 @@ userSchema.pre('save', async function() {
 })
 
 
-userSchema.statics.login = async function (email, password) {
+userSchema.statics.Login = async function (email, password) {
   
   const user = await User.findOne({ email });
   if(!user){
@@ -46,5 +46,5 @@ userSchema.statics.login = async function (email, password) {
   return user;
 }
 
-export const User = mongoose.model("User", userSchema);
-
+const User = mongoose.model("User", userSchema);
+export default User;

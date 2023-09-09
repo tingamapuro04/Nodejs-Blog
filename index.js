@@ -1,17 +1,15 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
-import { errorHandler } from "./Middlewares/serverErrorHandler";
+import { errorHandler } from "./Middlewares/serverErrorHandler.js";
+import { router } from "./Route/routes.js";
 const app = express();
 dotenv.config();
 
 // Middlewares
 app.use(express.json());
-app.use(errorHandler);
+app.use('/api/v1/', router);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 const { DATABASE_URL, PORT } = process.env;
 
@@ -25,5 +23,8 @@ mongoose
   .catch((error) => {
     console.error(error);
   });
+
+
+  app.use(errorHandler);
 
 
