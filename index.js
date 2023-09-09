@@ -1,11 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
+import { errorHandler } from "./Middlewares/serverErrorHandler";
 const app = express();
 dotenv.config();
 
 // Middlewares
 app.use(express.json());
+app.use(errorHandler);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -23,5 +25,5 @@ mongoose
   .catch((error) => {
     console.error(error);
   });
-  
+
 
