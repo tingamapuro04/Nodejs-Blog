@@ -12,7 +12,7 @@ app.use('/api/v1/', router);
 
 
 const { DATABASE_URL, PORT } = process.env;
-
+app.use(errorHandler);
 mongoose
   .connect(DATABASE_URL)
   .then(() => {
@@ -25,6 +25,5 @@ mongoose
   });
 
 
-  app.use(errorHandler);
 
 

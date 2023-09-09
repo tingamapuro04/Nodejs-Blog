@@ -1,20 +1,19 @@
 export const verifyToken = (req, res, next) => {
-  // Get the token from the request headers, query string, or cookies
-  const token =
-    req.headers.Authorization;
+  const authHeader = req.headers.authorization;
 
-  if (!token) {
-    return res.status(401).json({ message: "Unauthorized: No token provided" });
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+
+    jwt.verify(token, process.env.SECRET, (err, user) => {
+      if (err) {
+        return res.status(403).json("Invalid token provided");
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    return res
+      .status(401)
+      .json("You are not authenticated to perform this action");
   }
-
-  // Verify the token
-  jwt.verify(token, process.env.SECRET, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Unauthorized: Invalid token" });
-    }
-
-    // If the token is valid, you can attach the decoded user information to the request for further use
-    req.user = decoded;
-    next();
-  });
 };
