@@ -11,7 +11,16 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+const { DATABASE_URL, PORT } = process.env;
+
 mongoose
-  .connect("mongodb://127.0.0.1:27017/test")
-  .then(() => console.log("Connected!"));
+  .connect(DATABASE_URL)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    })
+  })
+  .catch((error) => {
+    console.error(error);
+  })
 
