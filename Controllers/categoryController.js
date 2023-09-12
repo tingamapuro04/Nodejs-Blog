@@ -2,17 +2,13 @@ import Category from '../Models/categoriesModel.js';
 
 export const addCategory = async (req, res) => {
   const { body } = req;
-  const { id } = req.params;
-  console.log(req.user);
+  //const { id } = req.params;
+  console.log(req.headers);
   try {
-    if (req.user.id == "64fcc85e4098ec8fbfcc1320"){
     const cat = await Category.create(body);
-    res.status(201).json({ message: 'category created successfully', data :cat });
-    } else {
-      res.status(300).json({
-        mess: "Failure",
-      })
-    }
+    res
+      .status(201)
+      .json({ message: "category created successfully", data: cat });
   } catch (error) {
     //next(error)
     res.status(500).json({

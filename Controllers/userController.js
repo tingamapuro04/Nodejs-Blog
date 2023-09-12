@@ -13,7 +13,7 @@ export const registerUser = async (req, res) => {
     const user = await User.create(body);
     const token = await generateToken(user.id);
     res.cookie('blog', token);
-    const { password, ...others} = user._doc;
+    const { password, __v, ...others} = user._doc;
     res.status(201).json({
       message: "Success",
       data: others
