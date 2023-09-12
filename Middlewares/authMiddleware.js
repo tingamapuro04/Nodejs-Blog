@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken';
+
 export const verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -7,5 +9,13 @@ export const verifyToken = (req, res, next) => {
     })
   }
   const token = authHeader.split(" ")[1];
-  jwt.verify(token, process.env.SECRET, )
+  jwt.verify(token, process.env.SECRET, (err, payload) => {
+    if (err){
+      return res.status(403).json({
+        message: "Invalid credential"
+      })
+    }
+    req.payload = payload;
+    next();
+  })
 };

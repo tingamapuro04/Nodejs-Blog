@@ -6,7 +6,8 @@ export const router = express.Router();
 
 router.route('/register').post(registerUser);
 router.route("/login").post(loginUser);
-router.route("/:id/categories", verifyToken).post(addCategory)
+// router.route("/:id/categories", verifyToken).post(addCategory);
+router.post("/:id/categories", verifyToken, addCategory);
 
 
 
