@@ -3,10 +3,10 @@ import Post from "../Models/PostModel.js";
 export const addPost = async (req, res) => {
   const { body } = req;
   try {
-    const cat = await Post.create(body);
+    const post = await Post.create(body);
     res
       .status(201)
-      .json({ message: "Post created successfully", data: cat });
+      .json({ message: "Post created successfully", data: post });
   } catch (error) {
     res.status(500).json({
       mess: "Failure",
@@ -17,8 +17,8 @@ export const addPost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    const cats = await Post.find({});
-    res.status(201).json({ message: "Successful get request", data: cats });
+    const posts = await Post.find({});
+    res.status(201).json({ message: "Successful get request", data: posts });
   } catch (error) {
     res.status(500).json({
       mess: "Failure",
@@ -28,14 +28,14 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPost = async (req, res) => {
-  const { cat_id } = req.params;
+  const { post_id } = req.params;
   try {
-    const cat = await Post.findById(cat_id);
+    const post = await Post.findById(post_id);
     res
       .status(201)
       .json({
         message: "Successful get request for single Post",
-        data: cat,
+        data: post,
       });
   } catch (error) {
     res.status(500).json({
@@ -46,13 +46,13 @@ export const getPost = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  const { cat_id } = req.params;
+  const { post_id } = req.params;
   const { body } = req;
   try {
-    const cat = await Post.findByIdAndUpdate(cat_id, body);
+    const post = await Post.findByIdAndUpdate(post_id, body, {new: true});
     res.status(201).json({
       message: "Successful update",
-      data: cat,
+      data: post,
     });
   } catch (error) {
     res.status(500).json({
@@ -63,17 +63,17 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
-  const { cat_id } = req.params;
+  const { post_id } = req.params;
   try {
-    const cat = await Post.findByIdAndDelete(cat_id);
-    if (!cat) {
+    const post = await Post.findByIdAndDelete(post_id);
+    if (!post) {
       res.status(400).json({
-        message: `Post of id: ${cat_id} not found`,
+        message: `Post of id: ${post_id} not found`,
       });
     } else {
       res.status(201).json({
         message: "Post deleted successfully",
-        data: cat,
+        data: post,
       });
     }
   } catch (error) {
