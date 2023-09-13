@@ -16,8 +16,15 @@ export const addPost = async (req, res) => {
 };
 
 export const getPosts = async (req, res) => {
+  const cat = req.query.cat;
   try {
-    const posts = await Post.find({});
+    let posts;
+    if (cat) {
+      posts = await Post.find({category: {$in: [cat]}});
+    } else {
+      posts = await  Post.find({});
+    }
+    
     res.status(201).json({ message: "Successful get request", data: posts });
   } catch (error) {
     res.status(500).json({
