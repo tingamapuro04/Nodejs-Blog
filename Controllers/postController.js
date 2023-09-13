@@ -6,7 +6,7 @@ export const addPost = async (req, res) => {
     const cat = await Post.create(body);
     res
       .status(201)
-      .json({ message: "category created successfully", data: cat });
+      .json({ message: "Post created successfully", data: cat });
   } catch (error) {
     res.status(500).json({
       mess: "Failure",
@@ -34,7 +34,7 @@ export const getPost = async (req, res) => {
     res
       .status(201)
       .json({
-        message: "Successful get request for single category",
+        message: "Successful get request for single Post",
         data: cat,
       });
   } catch (error) {
@@ -68,11 +68,11 @@ export const deletePost = async (req, res) => {
     const cat = await Post.findByIdAndDelete(cat_id);
     if (!cat) {
       res.status(400).json({
-        message: `Category of id: ${cat_id} not found`,
+        message: `Post of id: ${cat_id} not found`,
       });
     } else {
       res.status(201).json({
-        message: "Category delete successfully",
+        message: "Post deleted successfully",
         data: cat,
       });
     }
