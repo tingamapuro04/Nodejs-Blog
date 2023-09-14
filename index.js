@@ -16,11 +16,11 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
-
+app.use(cors(corsOptions));
 // Middlewares
 app.use(express.json());
 app.use('/api/v1/', router);
-app.use(cors(corsOptions));
+
 
 
 const { DATABASE_URL, PORT } = process.env;
