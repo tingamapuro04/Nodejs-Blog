@@ -25,7 +25,7 @@ export const getPosts = async (req, res) => {
       posts = await  Post.find({});
     }
     
-    res.status(201).json({ message: "Successful get request", data: posts });
+    res.status(200).json({ message: "Successful get request", data: posts });
   } catch (error) {
     res.status(500).json({
       mess: "Failure",
