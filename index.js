@@ -5,6 +5,7 @@ import multer from 'multer';
 import cors from "cors";
 import { errorHandler } from "./Middlewares/serverErrorHandler.js";
 import { router } from "./Route/routes.js";
+import cookieParser from "cookie-parser";
 const app = express();
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(cors(corsOptions));
 // Middlewares
 app.use(express.json());
 app.use('/api/v1/', router);
+app.use(cookieParser());
 
 
 

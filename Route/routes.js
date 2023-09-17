@@ -15,11 +15,11 @@ router.get("/:id/categories/:cat_id", verifyToken, getCategory);
 router.delete("/:id/categories/:cat_id", verifyToken, deleteCategory);
 
 // Post routes
-router.put("/posts/:post_id", verifyToken, updatePost);
-router.post("/posts", verifyToken, addPost);
+router.put("/posts/:post_id", updatePost);
+router.post("/posts", addPost);
 router.get("/posts", getPosts);
-router.get("/posts/:post_id", verifyToken, getPost);
-router.delete("/posts/:post_id", verifyToken, deletePost);
+router.get("/posts/:post_id", getPost);
+router.delete("/posts/:post_id", deletePost);
 
 
 
