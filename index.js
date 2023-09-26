@@ -3,11 +3,16 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import multer from 'multer';
 import cors from "cors";
+import bodyParser from "body-parser";
 import { errorHandler } from "./Middlewares/serverErrorHandler.js";
 import { router } from "./Route/routes.js";
 import cookieParser from "cookie-parser";
 const app = express();
 dotenv.config();
+
+const bodyParserOptions = {
+  limit: "10mb", // Increase the limit to 10MB (adjust as needed)
+};
 
 // cors options
 const corsOptions = {
@@ -19,6 +24,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 // Middlewares
+app.use(bodyParser.json(bodyParserOptions)); // Parse JSON
+app.use(bodyParser.urlencoded({ extended: true, ...bodyParserOptions }));
 app.use(express.json());
 app.use('/api/v1/', router);
 app.use(cookieParser());
